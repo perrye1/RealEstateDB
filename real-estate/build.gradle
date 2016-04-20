@@ -1,0 +1,49 @@
+buildscript {
+    repositories {
+    	mavenCentral()
+      	jcenter()
+    }
+}
+
+repositories {
+	mavenCentral()
+    jcenter()
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'war'
+apply plugin: 'jetty'
+
+war {
+    baseName = 'real-estate'
+}
+
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+    providedCompile 'javax.websocket:javax.websocket-api:1.1'
+    providedCompile 'org.apache.tomcat:tomcat-jdbc:7.0.19'
+
+    compile 'javax.servlet:jstl:1.2'
+    compile 'mysql:mysql-connector-java:5.1.36'
+    compile 'com.google.code.gson:gson:2.4'
+    compile 'com.google.guava:guava:18.0'
+
+    testCompile("junit:junit:4.12")
+}
+
+task deployProd(type: Copy) {
+        from war
+	into 'C:/Program Files/apache-tomcat-8.0.28/webapps'
+}
+
+task deployDev(type: Copy) {
+        from war
+	into 'E:/Programs/apache-tomcat-8.0.24/webapps'
+        //into 'C:/Users/perrye1/Documents/apache-tomcat-8.0.26/webapps'
+}
