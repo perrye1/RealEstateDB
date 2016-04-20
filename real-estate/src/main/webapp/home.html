@@ -1,11 +1,34 @@
 				<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-					<header class="section__play-btn mdl-cell mdl-cell--3-col-desktop mdl-cell--2-col-tablet mdl-cell--4-col-phone mdl-color--teal-100 mdl-color-text--white" style="background-color: white!important;">
-					</header>
-					<div class="mdl-card mdl-cell mdl-cell--9-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+					<div class="mdl-card mdl-cell mdl-cell--9-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone" ng-init="getAllListings();">
+					<h4 class="mdl-cell mdl-cell--12-col">Listings</h4>
 						<div class="mdl-card__supporting-text">
-							<h3 class="ng-binding">Overview</h3>
-							<p>{{ message }}</p>
-							<p>{{ testVar2 }}</p>
+							<table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+							<thead>
+						      <tr>
+						        <th class="mdl-data-table__cell--non-numeric"> Select </th>
+						        <th class="mdl-data-table__cell--non-numeric"> Asking Price </th>
+						        <th class="mdl-data-table__cell--non-numeric"> City </th>
+						        <th class="mdl-data-table__cell--non-numeric"> State </th>
+						        <th class="mdl-data-table__cell--non-numeric"> Address </th>
+						        <th class="mdl-data-table__cell--non-numeric"> Zip Code </th>
+						    </thead>
+						     <tbody>  
+						         <tr ng-repeat="listing in listings | limitTo:10">
+						              <td>
+						                 <input type="radio" name="radioGroup" ng-model="$root.currentListingID" ng-value="listing.t_id"></input>
+						              </td>
+						             <td class="mdl-data-table__cell--non-numeric">{{ listing.ask_price }}</td>
+						             <td class="mdl-data-table__cell--non-numeric">{{ listing.city }}</td>
+						             <td class="mdl-data-table__cell--non-numeric">{{ listing.state }}</td>
+						             <td class="mdl-data-table__cell--non-numeric">{{ listing.address }}</td>
+						             <td class="mdl-data-table__cell--non-numeric">{{ listing.zip }}</td>
+						         </tr>
+						     </tbody>
+						</table>						
 						</div>
+						<div class="mdl-card__actions mdl-card--border">
+						<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#updateListing" ng-show="me.is_agent">Update</a>
+						<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#markSold" ng-show="me.is_agent">Mark Sold</a>
+                		</div>
 					</div>
 				</section>

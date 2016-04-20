@@ -29,12 +29,11 @@ var App = angular.module('real-estate', ['ngRoute']);
     });
 
     // create the controller and inject Angular's $scope
-    App.controller('mainController', function($scope, $http) {
+    App.controller('mainController', function($scope, $rootScope, $http) {
 
         // create a message to display in our view
-        $scope.message = 'main controller';
-        $scope.testVar = 5;
-        $scope.testVar2 = 3;
+        $scope.homePageMessage = 'Table will go here';
+
 
 
         $scope.whoAmI = function() {
@@ -53,12 +52,31 @@ var App = angular.module('real-estate', ['ngRoute']);
 	        setTimeout($scope.getPeople, 2000);
     	}
 
-    	$scope.getListings = function() {
+    	$scope.getAllListings = function() {
 	        $http.get("/real-estate/listing?action=findAll")
 	            .then(function(resp) {
 	                $scope.listings = resp.data;
 	            });
-	        setTimeout($scope.getListings, 2000);
+    	}
+
+    	$scope.searchListings = function() {
+	        $http.post("/real-estate/listing", {}, {
+	            headers: {
+	                'Content-Type': 'application/x-www-form-urlencoded'
+	            },
+	            params: {
+	                "action": "search",
+	                "min_price": $scope.searchMinPrice,
+	                "max_price": $scope.searchMaxPrice,
+	                "city": $scope.searchCity,
+	                "state": $scope.searchState,
+	                "zip": $scope.searchZip,
+	                "pool": $scope.searchHasPool
+	            }
+	        })
+	        	.then(function(resp) {
+	 				$scope.listingSearchResults = resp.data;
+	            });
     	}
 
     	$scope.addNewListing = function() {
@@ -69,10 +87,12 @@ var App = angular.module('real-estate', ['ngRoute']);
 	            params: {
 	                "action": "add",
 	                "s_id": $scope.newListingSeller,
+	                "agent_id": $scope.me.p_id,
 	                "list_price": $scope.newListingPrice,
 	                "address": $scope.newListingAddress,
 	                "city": $scope.newListingCity,
 	                "state": $scope.newListingState,
+	                "zip": $scope.newListingZip,
 	                "pool": $scope.newListingPool
 	            }
 	        })
@@ -88,10 +108,12 @@ var App = angular.module('real-estate', ['ngRoute']);
 	            },
 	            params: {
 	                "action": "updateInfo",
+	                "t_id" : $rootScope.currentListingID,
 	                "list_price": $scope.updateListingPrice,
 	                "address": $scope.updateListingAddress,
 	                "city": $scope.updateListingCity,
 	                "state": $scope.updateListingState,
+	                "zip": $scope.updateListingZip,
 	                "pool": $scope.updateListingPool
 	            }
 	        })
@@ -106,7 +128,8 @@ var App = angular.module('real-estate', ['ngRoute']);
 	                'Content-Type': 'application/x-www-form-urlencoded'
 	            },
 	            params: {
-	                "action": "updateListingSold",
+	                "action": "updateSold",
+	                "t_id" : $rootScope.currentListingID,
 	                "b_id": $scope.soldListingBuyer,
 	                "sold_price": $scope.soldListingPrice,
 
