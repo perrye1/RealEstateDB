@@ -1,0 +1,40 @@
+				<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+					<div class="mdl-card mdl-cell mdl-cell--9-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+					<h4 class="mdl-cell mdl-cell--12-col">Update Listing</h4>
+						<div class="mdl-card__supporting-text">
+			                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ng-form name="price_section" >
+			                    <input class="mdl-textfield__input" type="number" name="price" ng-model="updateListingPrice" ng-required="true" id="price"/>
+			                    <label class="mdl-textfield__label" for="price">List Price</label>
+			                </div>
+			                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ng-form name="address_section">
+			                    <input class="mdl-textfield__input" type="text" name="address" ng-model="updateListingAddress" ng-required="true" id="address"/>
+			                    <label class="mdl-textfield__label" for="address">Address</label>
+			                </div>
+			                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ng-form name="city_section">
+			                    <input class="mdl-textfield__input" type="text" name="city" ng-model="updateListingCity" ng-required="true" id="City"/>
+			                    <label class="mdl-textfield__label" for="city">City</label>
+			                </div>
+			                <div class="mdl-select mdl-js-select mdl-select--floating-label" ng-form name="state_section" >
+						        <select class="mdl-select__input" id="state" name="state" ng-model="updateListingState" ng-required="true">
+						          <option ng-repeat="option in usStates" value="{{option.abbreviation}}">{{option.name}}</option>
+						        </select>
+						        <label class="mdl-select__label" for="state">State</label>
+						    </div>
+			                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ng-form name="zip_section" >
+			                    <input class="mdl-textfield__input" type="number" name="zip" ng-model="updateListingZip" ng-required="true" id="zip"/>
+			                    <label class="mdl-textfield__label" for="zip">Zip Code</label>
+			                </div>
+			                <div class="mdl-select mdl-js-select mdl-select--floating-label" ng-form name="pool_section" >
+						        <select class="mdl-select__input" id="pool" name="pool" ng-model="updateListingPool" ng-required="true">
+						          <option value="1">Yes</option>
+						          <option value="0">No</option>
+						        </select>
+						        <label class="mdl-select__label" for="pool">Has Pool?</label>
+						    </div>
+			                <div class="mdl-card__actions">
+			                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#">Cancel</a>
+			                    <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ng-click="updateListing();" ng-disabled="seller_section.seller.$invalid || price_section.price.$invalid || address_section.adddress.$invalid || city_section.city.$invalid || state_section.state.$invalid || zip_section.zip.$invalid || pool_section.pool.$invalid">Update</button>
+			                </div>
+            			</div>
+					</div>
+				</section>

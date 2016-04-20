@@ -1,0 +1,81 @@
+<!-- login.html -->
+<!-- for The Voting Games -->
+
+<html ng-app="real-estate">
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="CACHE-CONTROL" content="NO-CACHE">
+    <link rel='shortcut icon' type='image/x-icon' href='images/favicon.ico' />
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.min.js"></script>
+
+    <style>
+        .mdl-layout {
+            align-items: center;
+            justify-content: center;
+        }
+        .mdl-layout__content {
+            padding: 24px;
+            flex: none;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="mdl-layout mdl-js-layout mdl-color--grey-100" ng-controller="LoginController">
+    <main class="mdl-layout__content">
+        <div class="mdl-card mdl-shadow--6dp">
+            <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+                <h2 class="mdl-card__title-text"><img src="images/favicon.ico" alt="logo" height="50" width="50">&nbsp&nbspReal Estate App</h2>
+            </div>
+
+            <!-- This needs to be formatted differently -->
+
+            <div class="mdl-layout__content mdl-color-text--grey-600">
+                <p>Welcome to the Real Estate App!</p>
+                <p>Please Login or Register.</p>
+            </div>
+
+            <!-- -------------------------------------- -->
+
+            <div class="mdl-card__supporting-text" ng-init="showReg=false">
+                <div class="mdl-textfield mdl-js-textfield" ng-show="showReg" ng-form name="e_mailSection" autofocus>
+                    <input class="mdl-textfield__input" type="email" name="e_mail" ng-model="e_mail" ng-required="showReg" id="e_mail"/>
+                    <label class="mdl-textfield__label" for="e_mail">E-mail</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield" ng-show="showReg" ng-form name="f_nameSection" novalidate>
+                    <input class="mdl-textfield__input" type="text" name="f_name" ng-model="f_name" ng-required="showReg" id="f_name"/>
+                    <label class="mdl-textfield__label" for="f_name">First Name</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield" ng-show="showReg" ng-form name="l_nameSection" novalidate>
+                    <input class="mdl-textfield__input" type="text" name="l_name" ng-model="l_name" ng-required="showReg" id="l_name"/>
+                    <label class="mdl-textfield__label" for="l_name">Last Name</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield" ng-form name="u_nameSection" novalidate autofocus>
+                    <input class="mdl-textfield__input" type="text" name="u_name" ng-model="u_name" ng-required="true" id="u_name" autofocus/>
+                    <label class="mdl-textfield__label" for="u_name">Username</label>
+                </div>
+                <div class="mdl-card__actions mdl-card--border">
+                    <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ng-hide="showReg" ng-click="login();" ng-disabled="u_nameSection.u_name.$invalid">Log in</button>
+                    <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ng-click="showReg=true" ng-hide="showReg">Register</button>
+                    <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ng-click="register();" ng-show="showReg" ng-disabled="e_Section.e_mail.$invalid || f_nameSection.f_name.$invalid || l_nameSection.l_name.$invalid || u_nameSection.u_name.$invalid">Register</button>
+                    <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ng-click="showReg=false" ng-show="showReg">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular-route.js"></script>
+    <script src="scripts/app.js"></script>
+
+</body>
+</html>

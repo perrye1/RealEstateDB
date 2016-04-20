@@ -1,0 +1,79 @@
+<!-- home.html -->
+<!-- for The Voting Game -->
+
+<!doctype html>
+<html ng-app="real-estate" lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Expires" content="-1">
+	<meta http-equiv="CACHE-CONTROL" content="NO-CACHE">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.indigo-pink.min.css">
+
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="styles/styles.css">
+	<title>Real Estate App</title>
+
+	<!-- Add to homescreen for Chrome on Android -->
+	<meta name="mobile-web-app-capable" content="yes">
+	<link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+	<!-- Add to homescreen for Safari on iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="Material Design Lite">
+	<link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+	<!-- Tile icon for Win8 (144x144 + tile color) -->
+	<meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+	<meta name="msapplication-TileColor" content="#3372DF">
+
+	<style type="text/css">
+		.chat-window{
+		width: 500px;
+		height: 400px;
+		overflow-y: auto;
+		}
+	</style>
+
+</head>
+<body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base" ng-controller="mainController">
+	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header" ng-init="whoAmI(); getPeople();">
+		<header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
+			<div class="mdl-layout__header-row">
+				<!-- Title -->
+				<span class="mdl-layout-title"><img src="images/favicon.ico" alt="logo" height="50" width="50">&nbsp&nbspRealEstate</span>
+				<!-- Add spacer, to align navigation to the right -->
+				<div class="mdl-layout-spacer"></div>
+				<!-- Navigation. We hide it in small screens. -->
+				<nav class="mdl-navigation mdl-layout--large-screen-only">
+					<span class="mdl-layout-title">Welcome, <b>{{me.f_name}}</b>!&nbsp&nbsp&nbsp&nbsp</span>
+					<form method="post" action="/real-estate/login.html">
+						<button class="mdl-button mdl-button--raised mdl-js-button mdl-button--accent" ng-click="logout();">Logout</button>
+					</form>
+				</nav>
+			</div>
+			<div class="mdl-layout--large-screen-only mdl-layout__header-row">
+				<div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
+					<a href="#" class="mdl-layout__tab is-active">Home</a>
+					<a href="#newListing" class="mdl-layout__tab" ng-show="me.is_agent">New Listing</a>
+				</div>
+			</div>
+		</header>
+		<main class="mdl-layout__content">
+			<div class="mdl-layout__tab-panel is-active" ng-view>
+
+
+			</div>
+		</main>
+	</div>
+
+	<script src="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular-route.js"></script>
+    <script src="scripts/app.js"></script>
+
+</body>
+</html>

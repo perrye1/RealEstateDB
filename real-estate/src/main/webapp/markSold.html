@@ -1,0 +1,21 @@
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+					<div class="mdl-card mdl-cell mdl-cell--9-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+					<h4 class="mdl-cell mdl-cell--12-col">Mark Listing Sold</h4>
+						<div class="mdl-card__supporting-text">
+							<div class="mdl-select mdl-js-select mdl-select--floating-label" ng-form name="buyer_section" >
+						        <select class="mdl-select__input" id="buyer" name="buyer" ng-model="soldListingBuyer" ng-required="true">
+						          <option ng-repeat="option in people" value="{{option.p_id}}">{{option.f_name}} {{option.l_name}}</option>
+						        </select>
+						        <label class="mdl-select__label" for="buyer">Buyer Name</label>
+						    </div>
+			                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ng-form name="price_section" >
+			                    <input class="mdl-textfield__input" type="number" name="price" ng-model="soldListingPrice" ng-required="true" id="price"/>
+			                    <label class="mdl-textfield__label" for="price">Sold Price</label>
+			                </div>
+			                <div class="mdl-card__actions">
+			                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#">Cancel</a>
+			                    <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ng-click="markListingSold();" ng-disabled="buyer_section.buyer.$invalid || price_section.price.$invalid">Confirm</button>
+			                </div>
+            			</div>
+					</div>
+				</section>
