@@ -1,6 +1,6 @@
 				<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
 					<div class="mdl-card mdl-cell mdl-cell--9-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
-					<h4 class="mdl-cell mdl-cell--12-col">Update Listing {{currentListingID}}</h4>
+					<h4 class="mdl-cell mdl-cell--12-col">Update Listing</h4>
 						<div class="mdl-card__supporting-text">
 			                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ng-form name="price_section" >
 			                    <input class="mdl-textfield__input" type="number" name="price" ng-model="updateListingPrice" ng-required="true" id="price"/>
@@ -32,7 +32,7 @@
 						        <label class="mdl-select__label" for="pool">Has Pool?</label>
 						    </div>
 			                <div class="mdl-card__actions">
-			                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#">Cancel</a>
+			                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#homePage">Cancel</a>
 			                    <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ng-click="updateListing();" ng-disabled="seller_section.seller.$invalid || price_section.price.$invalid || address_section.adddress.$invalid || city_section.city.$invalid || state_section.state.$invalid || zip_section.zip.$invalid || pool_section.pool.$invalid">Update</button>
 			                </div>
             			</div>

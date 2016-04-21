@@ -9,6 +9,11 @@ var App = angular.module('real-estate', ['ngRoute']);
                 controller  : 'mainController'
             })
 
+            .when('/homePage', {
+                templateUrl : 'home.html',
+                controller  : 'mainController'
+            })
+
             // route for the about page
             .when('/markSold', {
                 templateUrl : 'markSold.html',
@@ -18,6 +23,16 @@ var App = angular.module('real-estate', ['ngRoute']);
             // route for the about page
             .when('/newListing', {
                 templateUrl : 'newListing.html',
+                controller  : 'mainController'
+            })
+
+            .when('/uploadImage', {
+                templateUrl : 'uploadImage.html',
+                controller  : 'mainController'
+            })
+
+            .when('/showImage', {
+                templateUrl : 'showImage.html',
                 controller  : 'mainController'
             })
 
@@ -140,6 +155,35 @@ var App = angular.module('real-estate', ['ngRoute']);
 	            });
     	}
 
+    	$scope.upload = function() {
+    		var t_id = $rootScope.currentListingID;
+	        var file = document.getElementById("filePicker").files[0];
+	        var formdata = new FormData();
+	        formdata.append('action', 'bulkUpload');
+	        formdata.append('t_id', t_id);
+	        formdata.append('file', file);
+	        var xhr = new XMLHttpRequest();       
+	        xhr.open('POST','/real-estate/upload',true);
+	        xhr.send(formdata);
+
+	        window.location = "/real-estate/";
+	    }
+
+	    $scope.retrieveImage = function() {
+	        $http.post("/real-estate/listing", {}, {
+	            headers: {
+	                'Content-Type': 'application/x-www-form-urlencoded'
+	            },
+	            params: {
+	                "action": "retrieveImage",
+	                "t_id" : $rootScope.currentListingID,
+	            }
+	        })
+	        	.then(function(resp) {
+	        		$scope.imageData = "data:image/jpg;base64," + resp.data.image;
+	            });
+    	}
+
         $scope.usStates = [{"name":"Alabama","abbreviation":"AL"},{"name":"Alaska","abbreviation":"AK"},{"name":"AmericanSamoa","abbreviation":"AS"},{"name":"Arizona","abbreviation":"AZ"},{"name":"Arkansas","abbreviation":"AR"},{"name":"California","abbreviation":"CA"},{"name":"Colorado","abbreviation":"CO"},{"name":"Connecticut","abbreviation":"CT"},{"name":"Delaware","abbreviation":"DE"},{"name":"DistrictOfColumbia","abbreviation":"DC"},{"name":"FederatedStatesOfMicronesia","abbreviation":"FM"},{"name":"Florida","abbreviation":"FL"},{"name":"Georgia","abbreviation":"GA"},
 			{"name":"Guam","abbreviation":"GU"},{"name":"Hawaii","abbreviation":"HI"},{"name":"Idaho","abbreviation":"ID"},{"name":"Illinois","abbreviation":"IL"},{"name":"Indiana","abbreviation":"IN"},{"name":"Iowa","abbreviation":"IA"},{"name":"Kansas","abbreviation":"KS"},{"name":"Kentucky","abbreviation":"KY"},{"name":"Louisiana","abbreviation":"LA"},{"name":"Maine","abbreviation":"ME"},{"name":"MarshallIslands","abbreviation":"MH"},{"name":"Maryland","abbreviation":"MD"},{"name":"Massachusetts","abbreviation":"MA"},{"name":"Michigan","abbreviation":"MI"},
 			{"name":"Minnesota","abbreviation":"MN"},{"name":"Mississippi","abbreviation":"MS"},{"name":"Missouri","abbreviation":"MO"},{"name":"Montana","abbreviation":"MT"},{"name":"Nebraska","abbreviation":"NE"},{"name":"Nevada","abbreviation":"NV"},{"name":"NewHampshire","abbreviation":"NH"},{"name":"NewJersey","abbreviation":"NJ"},{"name":"NewMexico","abbreviation":"NM"},{"name":"NewYork","abbreviation":"NY"},{"name":"NorthCarolina","abbreviation":"NC"},{"name":"NorthDakota","abbreviation":"ND"},{"name":"NorthernMarianaIslands","abbreviation":"MP"},
@@ -189,7 +233,7 @@ var App = angular.module('real-estate', ['ngRoute']);
                 if (json.result == "registerSuccess") {
                     window.location = "/real-estate/";
                 } else if (json.result == "alreadyRegistered") {
-                    window.location = "/real-estate/real-estate";
+                    window.location = "/real-estate/";
                 }
             });
     }

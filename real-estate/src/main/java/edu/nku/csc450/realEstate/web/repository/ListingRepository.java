@@ -5,8 +5,11 @@ package edu.nku.csc450.realEstate.web.repository;
 import edu.nku.csc450.realEstate.web.model.Listing;
 import java.time.LocalDateTime;
 import org.apache.tomcat.jdbc.pool.DataSource;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.IOUtils;
 
 import java.sql.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,10 +22,12 @@ public class ListingRepository {
 	private static final String INSERT_HOUSE_SQL = "INSERT INTO House (Address, City, Zip, US_State, Has_Pool) VALUES(?, ?, ?, ?, ?)";
 	private static final String UPDATE_TRANSACTION_SQL = "UPDATE Transactions SET Asking_Price = ? WHERE Tran_ID = ?";
 	private static final String UPDATE_HOUSE_SQL = "UPDATE House SET Address = ?, City = ?, US_State = ?, Zip = ?, Has_Pool = ? WHERE House_ID = ?";
+	private static final String UPDATE_IMAGE_SQL = "UPDATE House SET Picture = ? WHERE House_ID = ?";
 	private static final String UPDATE_TRANSACTION_SOLD_SQL = "UPDATE Transactions SET Buyer_ID = ?, Selling_Price = ?, Status = ?, Sold_Date = ? WHERE Tran_ID = ?";
 	private static final String SELECT_ALL_SQL = "SELECT * FROM Transactions JOIN House ON Transactions.House_ID=House.House_ID WHERE Status = 'available' ORDER BY Asking_Price";
 	private static final String SEARCH_SQL = "SELECT * FROM Transactions JOIN House ON Transactions.House_ID=House.House_ID WHERE ((Asking_Price < ? AND Asking_Price > ?) AND Status = ? AND City = ? AND US_State = ? AND Zip = ? AND Has_Pool = ? )";
 	private static final String SELECT_HOUSE_ID_SQL = "SELECT House_ID FROM Transactions WHERE Tran_ID = ?";
+	private static final String SELECT_IMAGE_SQL = "SELECT Picture FROM House WHERE House_ID = ?";
 
 	public ListingRepository(DataSource data_source) {
         this.data_source = data_source;
@@ -173,5 +178,68 @@ public class ListingRepository {
 			e.printStackTrace();
 		}
 		return Collections.emptyList();
+	}
+
+	public void uploadImage(int t_id, InputStream is) {
+
+		int house_id = -1;
+
+		try (
+            Connection connection = data_source.getConnection();
+            PreparedStatement statement = connection.prepareStatement(SELECT_HOUSE_ID_SQL)
+        ) {
+            statement.setInt(1, t_id);
+            ResultSet rs = statement.executeQuery();
+            rs.next();
+            house_id = rs.getInt("House_ID");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+		try (
+            Connection connection = data_source.getConnection();
+            PreparedStatement statement = connection.prepareStatement(UPDATE_IMAGE_SQL)
+        ) {
+            statement.setBlob(1, is);
+            statement.setInt(2, house_id);
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+	}
+
+	public String retrieveImage(int t_id) {
+
+		int house_id = -1;
+		String encodedImage = "";
+
+		try (
+            Connection connection = data_source.getConnection();
+            PreparedStatement statement = connection.prepareStatement(SELECT_HOUSE_ID_SQL)
+        ) {
+            statement.setInt(1, t_id);
+            ResultSet rs = statement.executeQuery();
+            rs.next();
+            house_id = rs.getInt("House_ID");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+		try (
+            Connection connection = data_source.getConnection();
+            PreparedStatement statement = connection.prepareStatement(SELECT_IMAGE_SQL)
+        ) {
+            statement.setInt(1, house_id);
+            ResultSet rs = statement.executeQuery();
+            rs.next();
+            InputStream is = rs.getBinaryStream("Picture");
+            byte[] buf = IOUtils.toByteArray(is);
+            byte[] encoded = Base64.encodeBase64(buf);
+            encodedImage = new String(encoded);
+            return encodedImage;
+        } catch (IOException|SQLException e) {
+            e.printStackTrace();
+        }
+        return encodedImage;
 	}
 }

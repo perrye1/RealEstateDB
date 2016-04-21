@@ -45,6 +45,7 @@ public class ListingServlet extends HttpServlet {
 			resp.setContentType("application/json");
 			resp.getWriter().write(json);
 			resp.flushBuffer();
+			
 		}
 	}
 
@@ -129,6 +130,20 @@ public class ListingServlet extends HttpServlet {
 				resp.getWriter().write(json);
 				resp.flushBuffer();
 
+		}else if(action.equals("retrieveImage")){
+			int t_id = Integer.parseInt(req.getParameter("t_id"));
+			String encodedImage = lrepo.retrieveImage(t_id);
+			System.out.println("retrieveImage called: " + encodedImage);
+
+			ImmutableMap<String,String> responseMap = ImmutableMap.<String, String>builder()
+						.put("image", encodedImage)
+						.build();
+				Gson gson = new GsonBuilder().setPrettyPrinting().create();
+				String json = gson.toJson(responseMap);
+
+				resp.setContentType("application/json");
+				resp.getWriter().write(json);
+				resp.flushBuffer();
 		}
 
 	}
