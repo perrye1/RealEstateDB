@@ -30,14 +30,6 @@
 	<meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
 	<meta name="msapplication-TileColor" content="#3372DF">
 
-	<style type="text/css">
-		.chat-window{
-		width: 500px;
-		height: 400px;
-		overflow-y: auto;
-		}
-	</style>
-
 </head>
 <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base" ng-controller="mainController">
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header" ng-init="whoAmI(); getPeople();">
@@ -52,6 +44,7 @@
 					<span class="mdl-layout-title">Welcome, <b>{{me.f_name}}</b>!&nbsp&nbsp&nbsp&nbsp</span>
 					<form method="post" action="/real-estate/login.html">
 						<button class="mdl-button mdl-button--raised mdl-js-button mdl-button--accent" ng-click="logout();">Logout</button>
+						<button class="mdl-button mdl-button--raised mdl-js-button mdl-button--accent" ng-click="promoteMe(); logout();" ng-hide="me.is_agent">Promote Me to Agent</button>
 					</form>
 				</nav>
 			</div>

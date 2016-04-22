@@ -1,8 +1,9 @@
 				<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-					<div class="mdl-card mdl-cell mdl-cell--9-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone" ng-init="getAllListings();">
+					<div class="mdl-card mdl-cell mdl-cell--12-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone" ng-init="getAllListings();">
 					<h4 class="mdl-cell mdl-cell--12-col">Listings</h4>
 						<div class="mdl-card__supporting-text">
-							<table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+							<p>Select a listing to get started</p>
+							<table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" style="width:100%" ng-init="radioClicked=false">
 							<thead>
 						      <tr>
 						        <th class="mdl-data-table__cell--non-numeric"> Select </th>
@@ -24,13 +25,13 @@
 						             <td class="mdl-data-table__cell--non-numeric">{{ listing.zip }}</td>
 						         </tr>
 						     </tbody>
-						</table>						
+						</table>					
 						</div>
 						<div class="mdl-card__actions mdl-card--border">
-						<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#updateListing" ng-show="me.is_agent">Update Info</a>
-						<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#uploadImage" ng-show="me.is_agent">Upload Image</a>
-						<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#showImage">show Image</a>
-						<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#markSold" ng-show="me.is_agent">Mark Sold</a>
+						<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#updateListing" ng-show="me.is_agent && radioClicked==true">Update Info</a>
+						<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#uploadImage" ng-show="me.is_agent && radioClicked==true">Upload Image</a>
+						<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#showImage" ng-show="radioClicked==true">show Image</a>
+						<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#markSold" ng-show="me.is_agent && radioClicked==true">Mark Sold</a>
                 		</div>
 					</div>
 				</section>

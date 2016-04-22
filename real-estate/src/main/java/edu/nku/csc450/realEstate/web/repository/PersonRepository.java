@@ -19,6 +19,7 @@ public class PersonRepository {
 	private static final String INSERT_SQL = "INSERT INTO Person (Email, First_Name, Last_Name, User_Name) VALUES (?, ?, ?, ? )";
 	private static final String SELECT_ALL_SQL = "SELECT * FROM Person;";
 	private static final String SELECT_PERSON_SQL = "SELECT * FROM Person WHERE User_Name = ";
+	private static final String UPDATE_PERSON_AGENT_SQL = "UPDATE Person SET Is_Agent = 1 WHERE Person_ID = ?";
 
 	public PersonRepository(DataSource data_source) {
         this.data_source = data_source;
@@ -34,6 +35,18 @@ public class PersonRepository {
 			statement.setString(2, f_name);
 			statement.setString(3, l_name);
 			statement.setString(4, u_name.toLowerCase());
+			statement.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void promotePerson(int p_id) {
+		try (
+			Connection connection = data_source.getConnection();
+			PreparedStatement statement = connection.prepareStatement(UPDATE_PERSON_AGENT_SQL)
+		) {
+			statement.setInt(1, p_id);
 			statement.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();

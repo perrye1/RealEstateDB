@@ -58,6 +58,19 @@ public class PersonServlet extends HttpServlet {
 			resp.setContentType("application/json");
 			resp.getWriter().write(json);
 			resp.flushBuffer();
+
 		}
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession session = req.getSession();
+		String action = req.getParameter("action");
+
+		if (action.equals("promoteUser")) {
+			int p_id = Integer.parseInt(req.getParameter("p_id"));
+			prepo.promotePerson(p_id);
+		}
+
 	}
 }
