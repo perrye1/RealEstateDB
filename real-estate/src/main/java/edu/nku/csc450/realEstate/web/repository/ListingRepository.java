@@ -25,7 +25,7 @@ public class ListingRepository {
 	private static final String UPDATE_IMAGE_SQL = "UPDATE House SET Picture = ? WHERE House_ID = ?";
 	private static final String UPDATE_TRANSACTION_SOLD_SQL = "UPDATE Transactions SET Buyer_ID = ?, Selling_Price = ?, Status = ?, Sold_Date = ? WHERE Tran_ID = ?";
 	private static final String SELECT_ALL_SQL = "SELECT * FROM Transactions JOIN House ON Transactions.House_ID=House.House_ID WHERE Status = 'available' ORDER BY Asking_Price";
-	private static final String SEARCH_SQL = "SELECT * FROM Transactions JOIN House ON Transactions.House_ID=House.House_ID WHERE ((Asking_Price <= ? AND Asking_Price >= ?) AND Status = ?)";
+	private static final String SEARCH_SQL = "SELECT * FROM Transactions JOIN House ON Transactions.House_ID=House.House_ID WHERE ((Asking_Price <= ? AND Asking_Price >= ?) AND Status = ?) ORDER BY Asking_Price";
 	private static final String SELECT_HOUSE_ID_SQL = "SELECT House_ID FROM Transactions WHERE Tran_ID = ?";
 	private static final String SELECT_IMAGE_SQL = "SELECT Picture FROM House WHERE House_ID = ?";
 
