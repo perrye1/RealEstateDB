@@ -2,7 +2,7 @@
 # Real Estate app for NKU CSC 450  #
 # Ethan Perry			   #
 # Jack Adkins			   #
-# Nolan Schumaker		   #
+# Nolan Shumaker		   #
 ####################################
 
 App is hosted on AWS and is available at http://tellview.net/real-estate (Internet Explorer is not supported)
