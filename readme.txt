@@ -21,8 +21,7 @@ App is hosted on AWS and is available at http://tellview.net/real-estate
 
 	b) Users can be either agents or regular users. 
 
-		i) If a user is not an agent, the user sees a button in the upper right corner that will allow them 
-		   to promote themselves to an agent for testing purposes.
+		i) If a user is not an agent, the user sees a button in the upper right corner that will allow them to promote themselves to an agent for testing purposes.
 
 			1) Clicking this button will require the user to log back in.
 
