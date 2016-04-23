@@ -5,7 +5,13 @@
 # Nolan Schumaker		   #
 ####################################
 
-App is hosted on AWS and is available at http://tellview.net/real-estate
+App is hosted on AWS and is available at http://tellview.net/real-estate (Internet Explorer is not supported)
+
+Screenshots of all user interface states are located in the directory: "/screenshots"
+
+Java source code is located in the directory: "/real-estate/src/main/java/edu/nku/csc450/realEstate/web"
+
+HTML and JS source code is located in the directory: "/real-estate/src/main/webapp"
 
 1) Unauthenticated requests are captured and redirected to the login/register page.
 
