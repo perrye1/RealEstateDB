@@ -83,14 +83,10 @@ var App = angular.module('real-estate', ['ngRoute']);
 	                "action": "search",
 	                "min_price": $scope.searchMinPrice,
 	                "max_price": $scope.searchMaxPrice,
-	                "city": $scope.searchCity,
-	                "state": $scope.searchState,
-	                "zip": $scope.searchZip,
-	                "pool": $scope.searchHasPool
 	            }
 	        })
 	        	.then(function(resp) {
-	 				$scope.listingSearchResults = resp.data;
+	 				$scope.listings = resp.data;
 	            });
     	}
 

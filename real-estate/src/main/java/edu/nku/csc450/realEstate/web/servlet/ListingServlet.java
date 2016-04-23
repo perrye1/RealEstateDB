@@ -57,12 +57,8 @@ public class ListingServlet extends HttpServlet {
 		if (action.equals("search")) {
 			int min_price = Integer.parseInt(req.getParameter("min_price"));
 			int max_price = Integer.parseInt(req.getParameter("max_price"));
-			String city = req.getParameter("city");
-			String state = req.getParameter("state");
-			int zip = Integer.parseInt(req.getParameter("zip"));
-			int pool = Integer.parseInt(req.getParameter("pool"));
 
-			List<Listing> listings = lrepo.search(min_price,max_price,city,state,zip,pool);
+			List<Listing> listings = lrepo.search(min_price,max_price);
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			String json = gson.toJson(listings);
 

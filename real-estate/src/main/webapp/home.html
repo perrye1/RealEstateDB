@@ -1,8 +1,20 @@
 				<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
 					<div class="mdl-card mdl-cell mdl-cell--12-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone" ng-init="getAllListings();">
-					<h4 class="mdl-cell mdl-cell--12-col">Listings</h4>
+						<h4 class="mdl-cell mdl-cell--12-col">Listings</h4>
 						<div class="mdl-card__supporting-text">
-							<p>Select a listing to get started</p>
+							<p>Select a listing to view options. Enter min and max prices to filter listings</p>
+
+							<div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--2-col" ng-form name="searchSection">
+                    			<input class="mdl-textfield__input" type="number" name="minPrice" ng-model="searchMinPrice" ng-init="searchMinPrice=0" id="minPrice"/>
+                    			<label for="minPrice">Min Price</label>
+                    		</div>
+                    		<div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--2-col" ng-form name="searchSection">
+                    			<input class="mdl-textfield__input" type="number" name="maxPrice" ng-model="searchMaxPrice" ng-init="searchMaxPrice=0" id="maxPrice"/>
+                    			<label for="maxPrice">Max Price</label>
+                			</div>
+
+                			<button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ng-click="searchListings();">Filter</button>
+
 							<table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" style="width:100%" ng-init="radioClicked=false">
 							<thead>
 						      <tr>

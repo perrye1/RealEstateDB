@@ -25,7 +25,7 @@ public class ListingRepository {
 	private static final String UPDATE_IMAGE_SQL = "UPDATE House SET Picture = ? WHERE House_ID = ?";
 	private static final String UPDATE_TRANSACTION_SOLD_SQL = "UPDATE Transactions SET Buyer_ID = ?, Selling_Price = ?, Status = ?, Sold_Date = ? WHERE Tran_ID = ?";
 	private static final String SELECT_ALL_SQL = "SELECT * FROM Transactions JOIN House ON Transactions.House_ID=House.House_ID WHERE Status = 'available' ORDER BY Asking_Price";
-	private static final String SEARCH_SQL = "SELECT * FROM Transactions JOIN House ON Transactions.House_ID=House.House_ID WHERE ((Asking_Price < ? AND Asking_Price > ?) AND Status = ? AND City = ? AND US_State = ? AND Zip = ? AND Has_Pool = ? )";
+	private static final String SEARCH_SQL = "SELECT * FROM Transactions JOIN House ON Transactions.House_ID=House.House_ID WHERE ((Asking_Price <= ? AND Asking_Price >= ?) AND Status = ?)";
 	private static final String SELECT_HOUSE_ID_SQL = "SELECT House_ID FROM Transactions WHERE Tran_ID = ?";
 	private static final String SELECT_IMAGE_SQL = "SELECT Picture FROM House WHERE House_ID = ?";
 
@@ -72,7 +72,7 @@ public class ListingRepository {
 	}
 
 	//finds listings, given search params
-	public List<Listing> search(int min_price, int max_price, String city, String state, int zip, int pool) {
+	public List<Listing> search(int min_price, int max_price) {
 		List<Listing> listings = new ArrayList<>();
 		try (
             Connection connection = data_source.getConnection();
@@ -81,10 +81,6 @@ public class ListingRepository {
             statement.setInt(1, max_price);
             statement.setInt(2, min_price);
 			statement.setString(3, "available");
-			statement.setString(4, city);
-            statement.setString(5, state);
-            statement.setInt(6, zip);
-            statement.setInt(7, pool);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
 				Listing l = new Listing(rs.getInt("Tran_ID"),rs.getInt("Seller_ID"),rs.getString("Address"),rs.getString("City"),rs.getInt("Zip"),rs.getString("US_State"),rs.getInt("Has_Pool"),rs.getInt("Asking_Price"),(rs.getTimestamp("Listed_Date")).toLocalDateTime());
